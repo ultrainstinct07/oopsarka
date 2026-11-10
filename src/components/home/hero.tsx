@@ -1,10 +1,12 @@
 import type { Route } from 'next'
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 import { MagneticSticker, OopsBadge } from '@/components/fx/magnetic'
 import { YarnBall } from '@/components/fx/yarn/yarn-ball'
 import { ArkaImage } from '@/components/media/arka-image'
 import { Annotation, CatEarFrame, Eyebrow, Sticker } from '@/components/media/decor'
 import { PawIcon, PawTrail, Sparkle } from '@/components/media/doodles'
+import { Runner } from '@/components/play/art'
 import { ButtonLink } from '@/components/ui/button-link'
 import type { ArkaImage as ArkaImageData } from '@/lib/content/types'
 
@@ -73,6 +75,27 @@ export function Hero({ portrait, latestHref }: { portrait: ArkaImageData; latest
               Read the latest oops
             </ButtonLink>
           </div>
+
+          {/* The mini games, announced where people land */}
+          <Link
+            href="/play"
+            className="rise-in press group mt-7 inline-flex max-w-full items-center gap-3 rounded-pill border-2 border-ink bg-lavender-soft py-1.5 pr-5 pl-1.5 transition-[translate,box-shadow] duration-300 [--d:580ms] hover:-translate-y-0.5 hover:shadow-print"
+          >
+            <span
+              aria-hidden
+              className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-full border-2 border-ink bg-[#161d36]"
+            >
+              <Runner
+                pose="jump"
+                className="w-10 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:-rotate-6"
+              />
+            </span>
+            <span className="min-w-0 leading-tight">
+              <span className="block label text-[0.62rem] text-lavender-ink">The Playroom</span>
+              <span className="block font-semibold">Three mini games starring Arka. Beat the high score.</span>
+            </span>
+            <ArrowRight aria-hidden className="size-4 shrink-0 transition-transform group-hover:translate-x-1" />
+          </Link>
         </div>
 
         <div className="relative mx-auto w-full max-w-[25rem] pt-10 sm:max-w-[28rem] lg:col-span-5 lg:max-w-none lg:pt-0 lg:pl-4 xl:pl-10">

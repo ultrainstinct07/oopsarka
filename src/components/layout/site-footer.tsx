@@ -27,6 +27,7 @@ const columns = [
       { href: '/diary', label: "Arka's Diary" },
       { href: '/categories', label: 'Categories' },
       { href: '/gallery', label: 'The Arka Files' },
+      { href: '/play', label: 'Playroom' },
       { href: '/about', label: 'About Arka' },
     ],
   },

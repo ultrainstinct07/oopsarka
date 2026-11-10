@@ -12,17 +12,18 @@ The site deploys and works without any environment variables, using the local sa
 
 Every variable is listed with comments in [`.env.example`](../.env.example). Set them under **Settings → Environment Variables**:
 
-| Variable                                                      | Production    | Preview  | Notes                                               |
-| ------------------------------------------------------------- | ------------- | -------- | --------------------------------------------------- |
-| `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET` | ✓             | ✓        | Previews then show CMS content too.                 |
-| `SANITY_API_READ_TOKEN`                                       | ✓             | ✓        | Viewer token, for draft previews.                   |
-| `SANITY_REVALIDATE_SECRET`                                    | ✓             |          | The webhook points at production.                   |
-| `BUTTONDOWN_API_KEY`                                          | ✓             | optional | Previews would really subscribe people.             |
-| `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`    | ✓             | optional | Previews would really send email.                   |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`          | ✓             | ✓        |                                                     |
-| `RATE_LIMIT_SALT`                                             | ✓             | ✓        | Any long random string.                             |
-| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`      | ✓             | **no**   | Tokens are checked against the production hostname. |
-| `NEXT_PUBLIC_VERCEL_ANALYTICS`                                | `1` if wanted |          | Also enable Analytics in the dashboard.             |
+| Variable                                                      | Production    | Preview  | Notes                                                     |
+| ------------------------------------------------------------- | ------------- | -------- | --------------------------------------------------------- |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET` | ✓             | ✓        | Previews then show CMS content too.                       |
+| `SANITY_API_READ_TOKEN`                                       | ✓             | ✓        | Viewer token, for draft previews.                         |
+| `SANITY_REVALIDATE_SECRET`                                    | ✓             |          | The webhook points at production.                         |
+| `BUTTONDOWN_API_KEY`                                          | ✓             | optional | Previews would really subscribe people.                   |
+| `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`    | ✓             | optional | Previews would really send email.                         |
+| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`          | ✓             | ✓        |                                                           |
+| `RATE_LIMIT_SALT`                                             | ✓             | ✓        | Any long random string.                                   |
+| `LEADERBOARD_ENABLED`                                         | `1` if wanted |          | Shared Playroom leaderboard; needs the Upstash variables. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`      | ✓             | **no**   | Tokens are checked against the production hostname.       |
+| `NEXT_PUBLIC_VERCEL_ANALYTICS`                                | `1` if wanted |          | Also enable Analytics in the dashboard.                   |
 
 **Leave `NEXT_PUBLIC_SITE_URL` unset.** It defaults to `https://oopsarka.space`, so canonicals, the sitemap, RSS and Open Graph URLs always point at the real domain, even on previews.
 

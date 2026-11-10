@@ -79,6 +79,14 @@ async function body(blocks: BodyBlock[]) {
 
 const ref = (id: string) => ({ _type: 'reference', _ref: id })
 const slug = (value: string) => ({ _type: 'slug', current: value })
+/**
+ * Fixed document IDs. Never use a `.` here: Sanity treats IDs containing a dot
+ * as private paths, readable only with a token, so the site's anonymous client
+ * would see none of them even in a public dataset.
+ */
+const id = (type: string, value: string) => `${type}-${value}`
+/** Earlier seeds used `type.slug` IDs; those copies are deleted on the next run. */
+const legacyId = (type: string, value: string) => `${type}.${value}`
 
 async function main() {
   const { projectId, dataset } = client.config()
@@ -87,7 +95,7 @@ async function main() {
 
   for (const c of categories) {
     docs.push({
-      _id: `category.${c.slug}`,
+      _id: id('category', c.slug),
       _type: 'category',
       title: c.title,
       slug: slug(c.slug),
@@ -100,10 +108,10 @@ async function main() {
     })
   }
   for (const t of tags)
-    docs.push({ _id: `tag.${t.slug}`, _type: 'tag', title: t.title, slug: slug(t.slug), description: t.description })
+    docs.push({ _id: id('tag', t.slug), _type: 'tag', title: t.title, slug: slug(t.slug), description: t.description })
   for (const a of authors) {
     docs.push({
-      _id: `author.${a.slug}`,
+      _id: id('author', a.slug),
       _type: 'author',
       name: a.name,
       slug: slug(a.slug),
@@ -116,14 +124,14 @@ async function main() {
 
   for (const post of [...stories, ...guides]) {
     docs.push({
-      _id: `post.${post.slug}`,
+      _id: id('post', post.slug),
       _type: 'post',
       title: post.title,
       slug: slug(post.slug),
       excerpt: post.excerpt,
-      category: ref(`category.${post.category}`),
-      tags: post.tags.map((t) => ({ ...ref(`tag.${t}`), _key: t })),
-      author: ref(`author.${post.author}`),
+      category: ref(id('category', post.category)),
+      tags: post.tags.map((t) => ({ ...ref(id('tag', t)), _key: t })),
+      author: ref(id('author', post.author)),
       publishedAt: post.publishedAt,
       updatedAt: post.updatedAt,
       cover: await image(post.cover),
@@ -181,6 +189,14 @@ async function main() {
 
   const transaction = client.transaction()
   for (const doc of docs) transaction.createOrReplace(doc as { _id: string; _type: string })
+  // Posts first: they reference the categories, tags and authors.
+  const legacy = [
+    ...[...stories, ...guides].map((post) => legacyId('post', post.slug)),
+    ...categories.map((c) => legacyId('category', c.slug)),
+    ...tags.map((t) => legacyId('tag', t.slug)),
+    ...authors.map((a) => legacyId('author', a.slug)),
+  ]
+  for (const legacyDoc of legacy) transaction.delete(legacyDoc)
   await transaction.commit({ visibility: 'async' })
   console.log(`✓ Seeded ${docs.length} documents and ${uploaded.size} files.`)
 }

@@ -420,6 +420,14 @@
     scale: 1.06;
   }
 
+  /* Playroom: these only exist while they move, so without motion they stay hidden. */
+  .confetti-piece,
+  .swipe,
+  .dust,
+  .streak {
+    display: none;
+  }
+
   /* Stretched link: whole card clickable, one accessible link */
   .stretched::after {
     content: '';
@@ -692,6 +700,127 @@
     scale: 1.7;
   }
 }
+/* Playroom games */
+@keyframes card-in {
+  from {
+    opacity: 0;
+    translate: 0 14px;
+    scale: 0.94;
+  }
+}
+@keyframes shake {
+  20% {
+    translate: -5px 0;
+  }
+  45% {
+    translate: 5px 0;
+  }
+  70% {
+    translate: -3px 0;
+  }
+}
+@keyframes swipe {
+  from {
+    opacity: 0;
+    translate: 34px -46px;
+    rotate: 34deg;
+  }
+  35% {
+    opacity: 1;
+    translate: 0 0;
+    rotate: 8deg;
+  }
+  70% {
+    opacity: 1;
+    translate: -16px 10px;
+    rotate: -12deg;
+  }
+  to {
+    opacity: 0;
+    translate: 22px -40px;
+    rotate: 26deg;
+  }
+}
+@keyframes float-up {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+    scale: 0.7;
+  }
+  25% {
+    opacity: 1;
+    scale: 1.08;
+  }
+  to {
+    opacity: 0;
+    translate: 0 -46px;
+    scale: 1;
+  }
+}
+@keyframes confetti-fall {
+  from {
+    opacity: 1;
+    translate: 0 -12px;
+    rotate: 0deg;
+  }
+  85% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    translate: var(--dx, 0) 22rem;
+    rotate: var(--turn, 180deg);
+  }
+}
+@keyframes dust {
+  from {
+    opacity: 0.9;
+    scale: 0.5;
+  }
+  to {
+    opacity: 0;
+    scale: 1.8;
+    translate: -34px -8px;
+  }
+}
+@keyframes bob {
+  50% {
+    translate: 0 -4px;
+  }
+}
+@keyframes streak {
+  from {
+    opacity: 0;
+    translate: 14px 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    translate: -18px 0;
+  }
+}
+@keyframes blink {
+  0%,
+  92%,
+  100% {
+    scale: 1 1;
+  }
+  96% {
+    scale: 1 0.1;
+  }
+}
+@keyframes steam {
+  from {
+    opacity: 0.9;
+    translate: 0 2px;
+  }
+  to {
+    opacity: 0;
+    translate: 0 -6px;
+  }
+}
 .reading-progress {
   transform-origin: 0 50%;
   transform: scaleX(0);
@@ -722,24 +851,25 @@
   }
 
   /* Page-load entrances (hero, menus). Individual transform properties, so they
-     layer over an element's own transform. `--d` is the delay. */
+     layer over an element's own transform. `--d` is the delay. They fill backwards
+     only: once finished, the element's own styles and transitions apply again. */
   html:not([data-calm='true']) .rise-in {
-    animation: rise-in 700ms var(--ease-out-soft) var(--d, 0ms) both;
+    animation: rise-in 700ms var(--ease-out-soft) var(--d, 0ms) backwards;
   }
   html:not([data-calm='true']) .drop-in {
-    animation: drop-in 900ms var(--ease-spring) var(--d, 0ms) both;
+    animation: drop-in 900ms var(--ease-spring) var(--d, 0ms) backwards;
   }
   html:not([data-calm='true']) .pop-in {
-    animation: pop-in 520ms var(--ease-spring) var(--d, 0ms) both;
+    animation: pop-in 520ms var(--ease-spring) var(--d, 0ms) backwards;
   }
   html:not([data-calm='true']) .roll-in {
-    animation: roll-in 1000ms var(--ease-out-soft) var(--d, 0ms) both;
+    animation: roll-in 1000ms var(--ease-out-soft) var(--d, 0ms) backwards;
   }
   html:not([data-calm='true']) .stamp-in {
-    animation: stamp-in 260ms var(--ease-out-soft) var(--d, 0ms) both;
+    animation: stamp-in 260ms var(--ease-out-soft) var(--d, 0ms) backwards;
   }
   html:not([data-calm='true']) .stagger-in > * {
-    animation: rise-in 520ms var(--ease-out-soft) both;
+    animation: rise-in 520ms var(--ease-out-soft) backwards;
   }
   html:not([data-calm='true']) .stagger-in > :nth-child(1) {
     animation-delay: 60ms;
@@ -755,6 +885,45 @@
   }
   html:not([data-calm='true']) .stagger-in > :nth-child(n + 5) {
     animation-delay: 280ms;
+  }
+
+  /* Playroom games */
+  html:not([data-calm='true']) .card-in {
+    animation: card-in 420ms var(--ease-out-soft) backwards;
+  }
+  html:not([data-calm='true']) .shake {
+    animation: shake 380ms ease-in-out;
+  }
+  html:not([data-calm='true']) .swipe {
+    display: block;
+    animation: swipe 520ms var(--ease-out-soft) both;
+    transform-origin: 50% 0;
+  }
+  html:not([data-calm='true']) .float-up {
+    animation: float-up 620ms var(--ease-out-soft) both;
+  }
+  html:not([data-calm='true']) .confetti-piece {
+    display: block;
+    animation: confetti-fall var(--t, 1500ms) cubic-bezier(0.3, 0.2, 0.6, 1) var(--d, 0ms) both;
+  }
+  html:not([data-calm='true']) .dust {
+    display: block;
+    animation: dust 420ms ease-out both;
+  }
+  html:not([data-calm='true']) .bob {
+    animation: bob 900ms ease-in-out infinite;
+  }
+  html:not([data-calm='true']) .streak {
+    display: block;
+    animation: streak 340ms linear infinite;
+  }
+  html:not([data-calm='true']) .blink {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: blink 4.2s ease-in-out infinite;
+  }
+  html:not([data-calm='true']) .steam {
+    animation: steam 1.6s ease-out infinite;
   }
 
   @supports (animation-timeline: view()) {

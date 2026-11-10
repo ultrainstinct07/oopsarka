@@ -57,6 +57,14 @@ export function isRateLimitConfigured() {
   return Boolean(integrations.rateLimit.url && integrations.rateLimit.token)
 }
 
+/**
+ * The shared Playroom leaderboard shows names that visitors type, so it is opt-in:
+ * it needs LEADERBOARD_ENABLED=1 as well as the Upstash store.
+ */
+export function isLeaderboardConfigured() {
+  return process.env.LEADERBOARD_ENABLED === '1' && isRateLimitConfigured()
+}
+
 /** Which third parties are actually in use — drives the privacy policy. */
 export function activeServices() {
   return {
@@ -64,6 +72,7 @@ export function activeServices() {
     contact: isContactConfigured(),
     turnstile: isTurnstileConfigured(),
     rateLimit: isRateLimitConfigured(),
+    leaderboard: isLeaderboardConfigured(),
     analytics: process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === '1',
   }
 }

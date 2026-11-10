@@ -15,6 +15,7 @@ After changing environment variables in Vercel, **redeploy**. `NEXT_PUBLIC_` val
 | Shared rate limits (Upstash)     | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`       | Falls back to an in-memory limiter, which only applies per server instance.                                                            |
 | Bot check (Cloudflare Turnstile) | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`   | Honeypot, time-trap and rate limits still apply.                                                                                       |
 | Analytics (Vercel)               | `NEXT_PUBLIC_VERCEL_ANALYTICS=1`                           | No analytics script at all.                                                                                                            |
+| Shared Playroom leaderboard      | `LEADERBOARD_ENABLED=1`, plus the two Upstash variables    | Players get a leaderboard kept in their own browser only.                                                                              |
 | Rate-limit key salt              | `RATE_LIMIT_SALT`                                          | A built-in default salt. Set your own random value in production.                                                                      |
 
 Both forms are Server Actions that also work without JavaScript. Every submission goes through the same checks, in this order:
@@ -69,6 +70,27 @@ Serverless functions don't share memory, so the built-in limiter only limits per
 
 The limits are 5 newsletter sign-ups per 10 minutes and 5 contact messages per hour, per visitor. The key is a salted SHA-256 of the IP address (`RATE_LIMIT_SALT`). Raw IPs are never stored by the app.
 
+## Playroom leaderboard (optional)
+
+Every game in the Playroom has a leaderboard. After a round the player can put a name to their score.
+
+- **"This device" always works.** Scores and the last name used are kept in the player's own browser and never sent anywhere. No setup.
+- **The shared board ("Everyone") is opt-in.** It shows names typed by visitors to everyone, so it stays off until you choose it:
+  1. Set up Upstash Redis as described above.
+  2. Set `LEADERBOARD_ENABLED=1`, then redeploy. The privacy policy then describes it.
+
+What the site does with a shared score:
+
+- It stores only the name, the score and the time, in one Redis sorted set per game (`oopsarka:leaderboard:knock`, `…:pairs`, `…:zoomies`), trimmed to the best 50. No IP address or other identifier is stored with it.
+- The server checks everything again: the game must exist, the score must be possible for that game, and the name is limited to 16 letters, numbers, spaces and `. _ ' ! -`. Names are shown as plain text.
+- Saves are limited to 15 per 10 minutes per visitor.
+- The page only says "saved to the leaderboard" after Redis confirms it. If the save fails, the player is told, and the score stays on their device.
+
+Two things to know before switching it on:
+
+- **Scores are reported by the player's browser.** The server rejects impossible values, but someone determined can submit a made-up score within the allowed range. Treat it as a for-fun board, not a competition.
+- **Names are public and not moderated.** The character rules stop links and markup, not rude words. To remove an entry, open the database in the Upstash console, find the key for that game and delete the member; to clear a board, delete the key. Setting `LEADERBOARD_ENABLED` to anything other than `1` and redeploying hides the shared board without deleting it.
+
 ## Bot check: Cloudflare Turnstile (optional)
 
 1. In the Cloudflare dashboard, go to **Turnstile** and **Add widget**. Add the hostname `oopsarka.space`; add `localhost` too if you want to test locally. Mode: Managed.
@@ -90,5 +112,6 @@ This renders Vercel's cookieless page-view script on the public site only, never
 - `src/app/actions.ts`: the two Server Actions.
 - `src/lib/integrations/providers.ts`: Buttondown, Resend and Turnstile calls.
 - `src/lib/integrations/rate-limit.ts` and `config.ts`.
+- `src/app/play-actions.ts`, `src/lib/integrations/leaderboard.ts` and `src/lib/play/leaderboard.ts`: the leaderboard's server actions, Redis storage and shared name and score rules.
 - `src/lib/forms/schemas.ts`: the shared validation rules and messages.
 - `tests/unit/integrations.test.ts`: tests that no path reports success without a confirmed provider response.

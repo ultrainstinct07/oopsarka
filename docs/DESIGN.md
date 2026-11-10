@@ -151,3 +151,32 @@ src/components/layout/       header, footer, wordmark, mobile menu, theme and Ca
 ```
 
 To add a category colour, add the token to `globals.css` (fill plus `-soft`, plus an `-ink` shade if it will carry text). Then add it to `ACCENT_FILL` / `ACCENT_SOFT`, to the `accent` option list in the category schema, and to the contrast test.
+
+## The Playroom (mini games)
+
+`/play` has three small games, each tied to a sample story:
+
+| Game             | What it is                                                             | Extras                                                                                            |
+| ---------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Knock It Off** | 30 seconds to tap items off a shelf and a table before they slide away | Every fifth clean knock in a row earns a bonus point. The laptop costs two and resets the streak. |
+| **Paw Pairs**    | Memory match using the story covers                                    | Timed, with a star rating by number of moves                                                      |
+| **3 AM Zoomies** | A one-button runner down a dark hallway                                | Five kinds of obstacle, and biscuits worth ten points each                                        |
+
+**Artwork.** All of it is hand-drawn SVG in `src/components/play/art.tsx`, in the same style as the story illustrations: a thick ink line over flat fills that sit slightly off-register. That file holds the table items, Arka peeking over the table (with calm, pleased and "oops" faces), his swiping paw, the running sprite (two run frames, a jump and a crash), the obstacles, the biscuit, the card back, the star rating and the confetti. The hallway is three SVG layers (wall with a window on the night skyline, furniture silhouettes, floorboards) that slide at different speeds.
+
+**How it is put together.**
+
+- The rules live in `src/lib/play/` as pure functions with unit tests; the components in `src/components/play/` only draw and handle input.
+- Each game is its own lazily loaded chunk, so no other page downloads game code. (The homepage teaser uses three small drawings from the art file; they are plain SVG markup, not script.)
+- Every control is a real button with a text label. Paw Pairs supports arrow keys; Zoomies is one action (tap, Space or the up arrow); Esc pauses it.
+- Start, resume and play-again buttons sit on a card over the play area. Results show up to three stars and are announced to screen readers.
+- Games pause when the tab is hidden or they scroll out of view.
+- On narrow screens Zoomies caps its top speed, so a phone gets the same time to react as a desktop.
+
+**Motion.** With reduced motion or Calm mode, Zoomies explains itself and waits for "Play anyway"; the paw swipe, score pop-ups, confetti, dust and screen shake do not run.
+
+**Sound.** Effects are synthesised in the browser (`src/lib/play/sound.ts`, no audio files) and are **off until the player switches them on**, so nothing ever plays by itself. The switch is next to the game title.
+
+**Leaderboard.** Under each game is a "Most wanted" board (`src/components/play/leaderboard.tsx`). When a round ends with a score, a form appears there asking for a name (remembered for next time); the result card's "Save score" button jumps to it. "This device" is always available. "Everyone" appears only when the shared board is switched on (see INTEGRATIONS.md), and a shared save is only announced once the server confirms it. For Paw Pairs fewer moves ranks higher.
+
+**Storage.** The "This device" board (`oopsarka:play:board:<game>`), the last name used (`oopsarka:play:name`), best scores (`oopsarka:play:<game>`) and the sound setting (`oopsarka:play:sound`) are kept in the browser's local storage and never sent anywhere. A score of zero is never recorded as a best.

@@ -16,7 +16,9 @@ export default defineConfig({
   reporter: process.env.CI ? 'github' : 'list',
   use: {
     baseURL,
-    trace: 'retain-on-failure',
+    // Traces keep DOM snapshots but not a screenshot of every frame: the Playroom games
+    // repaint constantly, and saving those frames from a dozen workers stalls the run.
+    trace: { mode: 'retain-on-failure', screenshots: false },
   },
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },

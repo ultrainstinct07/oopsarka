@@ -29,6 +29,7 @@ export const KEY_PAGES = [
   '/categories',
   '/about',
   '/gallery',
+  '/play',
   '/search?q=box',
   '/contact',
   '/newsletter',

@@ -6,6 +6,7 @@ import { Hero } from '@/components/home/hero'
 import { LatestStories } from '@/components/home/latest-stories'
 import { MeetArka } from '@/components/home/meet-arka'
 import { NewsletterSection } from '@/components/home/newsletter-section'
+import { PlayroomTeaser } from '@/components/home/playroom-teaser'
 import { PersianLife } from '@/components/home/persian-life'
 import { JsonLd } from '@/components/seo/json-ld'
 import {
@@ -50,6 +51,7 @@ export default async function HomePage() {
       <MeetArka profile={profile} />
       <CategoryMosaic tiles={tiles} />
       <EvidencePreview items={gallery} />
+      <PlayroomTeaser />
       <PersianLife guides={guides} />
       <NewsletterSection photo={settings.newsletterImage} pitch={settings.newsletterPitch} />
     </>

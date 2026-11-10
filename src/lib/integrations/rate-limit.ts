@@ -32,11 +32,15 @@ export function memoryLimiter(max: number, windowMs: number): Limiter {
 
 const limiters = new Map<string, Limiter>()
 
-export function getLimiter(name: 'newsletter' | 'contact'): Limiter {
+export function getLimiter(name: 'newsletter' | 'contact' | 'leaderboard'): Limiter {
   const existing = limiters.get(name)
   if (existing) return existing
   const config =
-    name === 'contact' ? { max: 5, window: '1 h' as const, ms: 3_600_000 } : { max: 5, window: '10 m' as const, ms: 600_000 }
+    name === 'contact'
+      ? { max: 5, window: '1 h' as const, ms: 3_600_000 }
+      : name === 'leaderboard'
+        ? { max: 15, window: '10 m' as const, ms: 600_000 }
+        : { max: 5, window: '10 m' as const, ms: 600_000 }
   let limiter: Limiter
   if (isRateLimitConfigured()) {
     const upstash = new Ratelimit({

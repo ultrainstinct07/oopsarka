@@ -1,7 +1,7 @@
 'use client'
 
 import { Dialog } from '@base-ui/react/dialog'
-import { ArrowUpRight, Search } from 'lucide-react'
+import { ArrowUpRight, Gamepad2, Search } from 'lucide-react'
 import Link from 'next/link'
 import type { RefObject } from 'react'
 import { PawIcon } from '@/components/media/doodles'
@@ -74,6 +74,13 @@ export default function MobileMenuDialog({
                 className="press inline-flex min-h-11 items-center gap-2 rounded-pill border border-line-strong px-5 font-semibold"
               >
                 <Search aria-hidden className="size-4" /> Search the diary
+              </Link>
+              <Link
+                href="/play"
+                onClick={close}
+                className="press inline-flex min-h-11 items-center gap-2 rounded-pill border border-line-strong px-5 font-semibold"
+              >
+                <Gamepad2 aria-hidden className="size-4" /> Playroom
               </Link>
               <Link
                 href="/newsletter"

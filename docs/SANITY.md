@@ -40,7 +40,7 @@ npx sanity exec scripts/seed-sanity.ts -- --dry-run   # shows what it would writ
 npm run seed                                          # the real thing (uses your `sanity login` token)
 ```
 
-The seed is idempotent. Documents have fixed IDs such as `post.the-3-am-zoomies-incident` and are written with `createOrReplace`, so a second run resets those documents to the sample versions. **Don't re-run it after you've started editing** unless you mean to.
+The seed is idempotent. Documents have fixed IDs such as `post-the-3-am-zoomies-incident` and are written with `createOrReplace`, so a second run resets those documents to the sample versions. **Don't re-run it after you've started editing** unless you mean to.
 
 Once seeded, open `http://localhost:3000/studio`, log in, and you'll see:
 
@@ -101,4 +101,5 @@ Schemas live in `src/sanity/schemaTypes/`, GROQ queries in `src/sanity/queries.t
 - **The Studio says "unconfigured" or the setup screen shows.** `NEXT_PUBLIC_SANITY_PROJECT_ID` isn't set for that environment. Set it, then redeploy, because `NEXT_PUBLIC_` values are inlined at build time.
 - **The Studio shows a CORS error when logging in.** Add that exact origin with `--credentials` (step 2).
 - **The site is empty after connecting Sanity.** The dataset has no posts yet. Run the seed (step 3), or publish a story.
+- **Documents exist in the Studio but not on the site.** Check their IDs. Sanity treats any ID containing a `.` (such as `post.my-story`) as private, readable only with a token, so the site's anonymous client can't see it even in a public dataset. Use `-` instead.
 - **The browser console reports CSP blocks inside the Studio.** The Studio has its own policy in `security-headers.ts` (`studioSecurityHeaders`). Allow the reported Sanity origin there. Without a live project, only the unconfigured Studio could be tested, so this may need a tweak once connected.

@@ -46,7 +46,7 @@ public/images/arka/        Web copies of the photos, plus video posters and stil
 public/media/arka/         Web copies of the clips (audio removed, caption cropped out)
 public/images/illustrations/  Original riso-style SVG covers for stories without a photo
 src/app/                   Routes (App Router)
-  (site)/                  The public site: home, diary, categories, tags, about, gallery, search, contact, newsletter, legal pages
+  (site)/                  The public site: home, diary, categories, tags, about, gallery, search, contact, newsletter, legal pages, and the Playroom mini games at /play
   studio/                  Embedded Sanity Studio at /studio
   api/                     Sanity webhook (/api/revalidate) and Draft Mode for previews
   rss.xml, sitemap.ts, robots.ts, opengraph-image.tsx, search-index.json, manifest.ts

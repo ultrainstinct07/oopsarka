@@ -21,6 +21,9 @@ export function NotFoundView() {
           <ButtonLink href="/search" variant="secondary">
             <Search aria-hidden className="size-4" /> Search the diary
           </ButtonLink>
+          <ButtonLink href="/play" variant="ghost">
+            Or play a game instead
+          </ButtonLink>
         </div>
       </div>
       <div className="relative mx-auto w-full max-w-[20rem] pt-8 lg:col-span-4 lg:col-start-9">

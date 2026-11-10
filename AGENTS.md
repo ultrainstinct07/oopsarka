@@ -36,3 +36,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - **Windows:** after rebuilding, stop any old `next start` on 3100/3200 first. A stale server serves old asset hashes, so pages render unstyled.
 - **Scroll reveals:** add `data-reveal` (`up`, `pop`, `left`, `right`, `fade`) to an element, or `data-reveal-stagger` to a group. Don't put it on above-the-fold headings or the LCP image, since it starts them at opacity 0.
 - **Local content while `.env.local` points at Sanity:** run builds and tests with `NEXT_PUBLIC_SANITY_PROJECT_ID=` (empty) to use the sample content the E2E suite expects.
+- **Entrance animations fill `backwards`, not `both`:** a filling animation keeps hold of `opacity`/`scale`/`rotate` and silently blocks later transitions on the same element (this broke the falling items in Knock It Off).
+- **Playroom:** rules in `src/lib/play/` (pure, unit-tested), drawing in `src/components/play/`. Sound must stay off by default.

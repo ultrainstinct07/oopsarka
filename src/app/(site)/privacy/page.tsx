@@ -42,9 +42,18 @@ export default function PrivacyPage() {
             don&apos;t use these logs to identify you.
           </p>
           <p>
-            Your display choices (3 AM mode and Calm mode) are saved in your own browser&apos;s local storage. They never leave
+            Your display choices (3 AM mode and Calm mode) and your Playroom best scores, sound setting, the name you last used
+            and the &ldquo;This device&rdquo; leaderboard are saved in your own browser&apos;s local storage. They never leave
             your device.
           </p>
+          {services.leaderboard ? (
+            <p>
+              The Playroom also has a shared leaderboard. If you choose to save a score to it, the name you type and your score
+              are stored with our database provider (Upstash) together with the time, and shown publicly on the site. Nothing else
+              is stored with it: no email address, no IP address. Use a nickname if you would rather not show your real name, and
+              contact us if you would like an entry removed.
+            </p>
+          ) : null}
           {services.analytics ? (
             <p>
               We use Vercel Web Analytics to count page views. It is cookieless, collects aggregated data and does not build a

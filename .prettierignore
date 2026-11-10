@@ -1,0 +1,9 @@
+.next
+node_modules
+public
+sanity/extract.json
+src/sanity/sanity.types.ts
+src/content/local/media.generated.json
+package-lock.json
+Photos
+src/lib/cn-tables.ts

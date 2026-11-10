@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <rect width="1200" height="1200" fill="#faefc4"/>
+  <!-- rug -->
+  <ellipse cx="614" cy="852" rx="470" ry="190" fill="#9fb59a"/>
+  <ellipse cx="600" cy="840" rx="470" ry="190" fill="#becdba" stroke="#24211f" stroke-width="13"/>
+  <ellipse cx="600" cy="840" rx="380" ry="140" fill="none" stroke="#24211f" stroke-width="6" stroke-dasharray="4 22" stroke-linecap="round"/>
+  <!-- wand toy -->
+  <path d="M160 160l560 520" stroke="#24211f" stroke-width="20" stroke-linecap="round"/>
+  <path d="M160 160c80-30 160 10 190 70" fill="none" stroke="#24211f" stroke-width="6"/>
+  <path d="M720 680c40 40 40 100 0 130" fill="none" stroke="#24211f" stroke-width="6"/>
+  <g transform="translate(700 800)">
+    <path d="M0 0c-30-80-10-160 40-190 30 60 20 140-40 190Z" fill="#e7b8b0" stroke="#24211f" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M0 0c50-60 130-80 180-50-40 50-110 70-180 50Z" fill="#c7b9e8" stroke="#24211f" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M0 0c-70-30-150-10-190 40 60 30 140 20 190-40Z" fill="#f3d875" stroke="#24211f" stroke-width="10" stroke-linejoin="round"/>
+  </g>
+  <!-- crinkle ball -->
+  <circle cx="380" cy="780" r="92" fill="#c7b9e8" transform="translate(12 10)"/>
+  <circle cx="380" cy="780" r="92" fill="none" stroke="#24211f" stroke-width="12"/>
+  <path d="M300 760l30-30 30 30 30-30 30 30 30-30M300 810l30-30 30 30 30-30 30 30 30-30" fill="none" stroke="#24211f" stroke-width="7" stroke-linejoin="round"/>
+  <!-- small box -->
+  <g transform="translate(14 12)"><path d="M860 690h190v150H860Z" fill="#d89a5c"/></g>
+  <path d="M860 690h190v150H860Z" fill="none" stroke="#24211f" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M860 690l-30-50h190l30 50M1050 690l40-60" fill="none" stroke="#24211f" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+  <g fill="#24211f"><circle cx="980" cy="230" r="10"/><circle cx="1040" cy="300" r="7"/><circle cx="210" cy="1050" r="8"/></g>
+</svg>

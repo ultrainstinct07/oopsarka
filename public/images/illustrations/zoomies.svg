@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <rect width="1200" height="1200" fill="#c7b9e8"/>
+  <path d="M160 300c120-170 420-230 640-150s330 300 260 520-290 380-560 360S110 820 90 640s-30-200 70-340Z" fill="#b5a3df"/>
+  <!-- moon -->
+  <path d="M960 170a90 90 0 1 0 70 150a110 110 0 0 1-70-150Z" fill="#f3d875" transform="translate(12 10)"/>
+  <path d="M960 170a90 90 0 1 0 70 150a110 110 0 0 1-70-150Z" fill="none" stroke="#24211f" stroke-width="9" stroke-linejoin="round"/>
+  <!-- speed lines -->
+  <g stroke="#24211f" stroke-width="12" stroke-linecap="round">
+    <path d="M110 430h150"/><path d="M80 520h200"/><path d="M130 610h130"/>
+  </g>
+  <!-- clock (riso offset fill + outline) -->
+  <circle cx="618" cy="532" r="300" fill="#f8f5ef"/>
+  <circle cx="600" cy="520" r="300" fill="none" stroke="#24211f" stroke-width="14"/>
+  <circle cx="600" cy="520" r="262" fill="none" stroke="#24211f" stroke-width="5" stroke-dasharray="2 30" stroke-linecap="round"/>
+  <g stroke="#24211f" stroke-width="12" stroke-linecap="round">
+    <path d="M600 262v44"/><path d="M600 734v44"/><path d="M342 520h44"/><path d="M814 520h44"/>
+  </g>
+  <!-- hands at 3:00 -->
+  <path d="M600 520V330" stroke="#5f4b9b" stroke-width="20" stroke-linecap="round"/>
+  <path d="M600 520h150" stroke="#24211f" stroke-width="26" stroke-linecap="round"/>
+  <circle cx="600" cy="520" r="22" fill="#24211f"/>
+  <!-- bells -->
+  <path d="M390 250c-40-70 20-140 100-110" fill="#f3d875" stroke="#24211f" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M810 250c40-70-20-140-100-110" fill="#f3d875" stroke="#24211f" stroke-width="12" stroke-linejoin="round"/>
+  <!-- wobble marks -->
+  <g stroke="#24211f" stroke-width="10" stroke-linecap="round" fill="none">
+    <path d="M300 230c-20-16-30-34-30-56"/><path d="M905 230c20-16 30-34 30-56"/>
+  </g>
+  <!-- racing paw prints -->
+  <g fill="#24211f">
+    <g transform="translate(240 960) rotate(80) scale(1.1)"><ellipse cx="0" cy="22" rx="30" ry="25"/><ellipse cx="-34" cy="-14" rx="12" ry="16"/><ellipse cx="-12" cy="-34" rx="12" ry="16"/><ellipse cx="14" cy="-34" rx="12" ry="16"/><ellipse cx="36" cy="-14" rx="12" ry="16"/></g>
+    <g transform="translate(470 1010) rotate(95) scale(1.15)"><ellipse cx="0" cy="22" rx="30" ry="25"/><ellipse cx="-34" cy="-14" rx="12" ry="16"/><ellipse cx="-12" cy="-34" rx="12" ry="16"/><ellipse cx="14" cy="-34" rx="12" ry="16"/><ellipse cx="36" cy="-14" rx="12" ry="16"/></g>
+    <g transform="translate(720 950) rotate(78) scale(1.2)"><ellipse cx="0" cy="22" rx="30" ry="25"/><ellipse cx="-34" cy="-14" rx="12" ry="16"/><ellipse cx="-12" cy="-34" rx="12" ry="16"/><ellipse cx="14" cy="-34" rx="12" ry="16"/><ellipse cx="36" cy="-14" rx="12" ry="16"/></g>
+    <g transform="translate(960 1015) rotate(96) scale(1.25)"><ellipse cx="0" cy="22" rx="30" ry="25"/><ellipse cx="-34" cy="-14" rx="12" ry="16"/><ellipse cx="-12" cy="-34" rx="12" ry="16"/><ellipse cx="14" cy="-34" rx="12" ry="16"/><ellipse cx="36" cy="-14" rx="12" ry="16"/></g>
+  </g>
+  <!-- sparkles -->
+  <g fill="#f8f5ef">
+    <path d="M1060 520c6 40 18 52 58 58-40 7-52 19-58 62-6-43-18-55-58-62 40-6 52-18 58-58Z"/>
+    <path d="M150 820c4 26 12 34 38 38-26 5-34 13-38 40-4-27-12-35-38-40 26-4 34-12 38-38Z"/>
+  </g>
+</svg>

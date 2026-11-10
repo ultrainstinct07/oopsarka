@@ -1,0 +1,74 @@
+{
+  "images": {
+    "night-patrol": {
+      "src": "/images/arka/arka-night-patrol.jpg",
+      "width": 1086,
+      "height": 1448,
+      "lqip": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAADQAwCdASoQABUAPu1iqU2ppaOiMAgBMB2JaACdACB7DMdYQt8hfQAA+2USxBOtCO8N09ikVLObuAJgdvE7txCpxwGzCCZQ/QeF/S1AO/NdV8l0fawKLqXaWsoNhXdNASvr0OyXnHbEmzd7jB1AIlEIOAivhD8h7crL3Hl2wc1RNJQfgg9tLDp2bi24Zkz3FYjN8gAA",
+      "dominant": "#181828"
+    },
+    "blanket-stare": {
+      "src": "/images/arka/arka-blanket-stare.jpg",
+      "width": 960,
+      "height": 1280,
+      "lqip": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAACQBACdASoQABUAPu1iqU2ppaOiMAgBMB2JQBOmUGRvAgBLfotqHqiKZ4Hu2gAA/upGPL5hH6LKzfCLLt1Bf82EU3/B20lhgWzFxu2VfHhoV6CuDzTZv4Sx83Sz4uZDpERd5f5ZgIAAAA==",
+      "dominant": "#482808"
+    },
+    "blanket-lookup": {
+      "src": "/images/arka/arka-blanket-lookup.jpg",
+      "width": 960,
+      "height": 1280,
+      "lqip": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQBACdASoQABUAPu1iqU2ppaQiMAgBMB2JQBOmUABNAsaZAT54ywH6eAD+7xJLdJerlXBzyGZ/JOi+DO+BjL3eLQNycDVVbxJiJu4Vm7pRh3Y8UUG/fjN6gSRdgMfyhVAAAA==",
+      "dominant": "#786858"
+    },
+    "office-chair-poster": {
+      "src": "/images/arka/arka-office-chair-poster.jpg",
+      "width": 464,
+      "height": 696,
+      "lqip": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAADwAwCdASoQABgAPu1iqU2ppaOiMAgBMB2JZQCsABKiA63Fr2GF/tUAAP2wD8ntF3g89rrMYXlNlGJlTQ/C7ybdaNMAKBpc4r7RGmGSHaKaR4Jv/di8zkRKUT15DqrkkZATLPS9S/rtLrwJJLgROxI6PdIwPRbV4FZxlVZgsoFY7sZuBzyJbaTJwwUgAA==",
+      "dominant": "#a89888"
+    },
+    "rooftop-complaint-poster": {
+      "src": "/images/arka/arka-rooftop-complaint-poster.jpg",
+      "width": 576,
+      "height": 1024,
+      "lqip": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4INYAAABwBQCdASoQABwAPu1iqU2ppaOiMAgBMB2JbACdMoMYLI6PwCqBE5kBS55QZ2BYAFtAhNYAAP58XV/zk7pbUfCtk2hMEipm0QN38Fzk9oEVcQxOOPQAcPaN7pq/mKNjDDrXHwHeKQNO1EGH2TVejCOjdvcX/TEl+VMDAS15VFzlq95mha33kO7JoLEHq1CItczQ2qCSs/Ab4mYRABZpjn68m70jRTIbfrzV0Gx8tpGZp1m3SDQ309nNRoI5hiFPAnfa1NEYQwYtCgFmmboUvS8AzZNFoAAA",
+      "dominant": "#a8c8e8"
+    },
+    "rooftop-harness": {
+      "src": "/images/arka/arka-rooftop-harness.jpg",
+      "width": 576,
+      "height": 1024,
+      "lqip": "data:image/webp;base64,UklGRuIAAABXRUJQVlA4INYAAAAQBQCdASoQABwAPu1iqk4ppaQiMAgBMB2JbACdMoMYLI6KgEQulni7LYaCs4C4ebAAAP58ZRvtsiIzTbhuUEUy4d+n5wjw1IqxeSRNGytaPZiKAVgapZqZ9GBVbBGd75Y+/YE+ftHw1pdFx5jF17ou8WVSfGlh0UtTxtXcd/xwV+Y/UdrAmUw/Qt93SDPGTOIM/AL8ef/iO7w2hyxs77vP/GPfXSWKQatUGTc5rJanf9eCdeaRDeSryEn4ZUZ/TMFYg/1T4WUTzI/NhfOhS9LwDNk0WgAA",
+      "dominant": "#a8c8e8"
+    },
+    "rooftop-midmeow": {
+      "src": "/images/arka/arka-rooftop-midmeow.jpg",
+      "width": 576,
+      "height": 1024,
+      "lqip": "data:image/webp;base64,UklGRtgAAABXRUJQVlA4IMwAAAAQBQCdASoQABwAPu1iqU2ppaOiMAgBMB2JagCdMoMYA0kVzoaNXbUhcBx8Kd3SXVTAAP6oXG0UCRXgmpJXPWPS4D1R1XQb27aICF3ocd+2dg+CCNKSSlgmqVLzBkwRt1r7aYwuuleJsAgcoTXR/ZV/JTHWhWYnbWUcvNjqQ1siwfC8Nz9v3/I9bzr3f+ipFQcDHtAgWo4vGEUjR/jMlnRmQAEgCvv1IaPVnEF9OOeFXNeW+3DKafs+1HEnfsw0f+GcdfmzyGds06AAAAA=",
+      "dominant": "#180808"
+    },
+    "rooftop-full-complaint": {
+      "src": "/images/arka/arka-rooftop-full-complaint.jpg",
+      "width": 576,
+      "height": 1024,
+      "lqip": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAACQBACdASoQABwAPu1iqU2ppaOiMAgBMB2JagCdMoR3ABmimBqsAPhSmofigAAA/lMGMtLoxtnwClBdk7+aws0UqdTrfedK6/2qGII6n9p9HgyrWSl2zmQj5+y9c2FdfLkHAauuRrE0e1321g1AKgstHyF0TBFOEObnZ0hxXNxcuYMkdGLYjMRUhfhbGdC3ISo33aeyfWHOmEEvEAAAAA==",
+      "dominant": "#885838"
+    }
+  },
+  "videos": {
+    "office-chair": {
+      "src": "/media/arka/arka-office-chair.mp4",
+      "width": 464,
+      "height": 696,
+      "poster": "office-chair-poster"
+    },
+    "rooftop-complaint": {
+      "src": "/media/arka/arka-rooftop-complaint.mp4",
+      "width": 576,
+      "height": 1024,
+      "poster": "rooftop-complaint-poster"
+    }
+  }
+}

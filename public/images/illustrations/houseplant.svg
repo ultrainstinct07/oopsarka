@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200">
+  <rect width="1200" height="1200" fill="#becdba"/>
+  <circle cx="610" cy="560" r="430" fill="#aec1a9"/>
+  <!-- leaves (offset fills) -->
+  <g fill="#7f9c78" transform="translate(14 12)">
+    <path d="M600 640C520 520 380 470 300 500c40 120 170 190 300 140Z"/>
+    <path d="M600 600c40-150 170-250 290-240-20 140-150 250-290 240Z"/>
+    <path d="M600 560c-60-150-20-300 70-360 60 130 30 280-70 360Z"/>
+    <path d="M600 680c-140-30-260 20-310 110 130 50 250 10 310-110Z"/>
+  </g>
+  <g fill="none" stroke="#24211f" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M600 640C520 520 380 470 300 500c40 120 170 190 300 140Z"/>
+    <path d="M600 600c40-150 170-250 290-240-20 140-150 250-290 240Z"/>
+    <path d="M600 560c-60-150-20-300 70-360 60 130 30 280-70 360Z"/>
+    <path d="M600 680c-140-30-260 20-310 110 130 50 250 10 310-110Z"/>
+    <path d="M600 820V560M600 640l-150-90M600 610l150-140M600 700l-160 40"/>
+  </g>
+  <!-- the nibble -->
+  <circle cx="887" cy="372" r="22" fill="#becdba"/><circle cx="866" cy="400" r="18" fill="#becdba"/>
+  <!-- pot -->
+  <path d="M432 812h372l-46 268H478Z" fill="#e0914a" transform="translate(14 12)"/>
+  <path d="M432 812h372l-46 268H478Z" fill="none" stroke="#24211f" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M410 790h416v56H410Z" fill="#f3d875" stroke="#24211f" stroke-width="14" stroke-linejoin="round"/>
+  <!-- evidence tag -->
+  <path d="M800 870c60 10 100 40 120 80" fill="none" stroke="#24211f" stroke-width="6"/>
+  <g transform="rotate(14 990 1010)">
+    <path d="M900 950h190l40 50-40 50H900Z" fill="#f8f5ef" stroke="#24211f" stroke-width="10" stroke-linejoin="round"/>
+    <circle cx="1100" cy="1000" r="10" fill="#24211f"/>
+    <path d="M930 985h120M930 1018h80" stroke="#5f4b9b" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <!-- magnifying glass -->
+  <circle cx="300" cy="330" r="150" fill="#f8f5ef" opacity=".55"/>
+  <circle cx="300" cy="330" r="150" fill="none" stroke="#24211f" stroke-width="26"/>
+  <path d="M410 440l130 130" stroke="#24211f" stroke-width="44" stroke-linecap="round"/>
+  <path d="M230 260c30-34 80-46 120-34" fill="none" stroke="#f8f5ef" stroke-width="16" stroke-linecap="round"/>
+  <g fill="#24211f">
+    <circle cx="160" cy="900" r="10"/><circle cx="200" cy="960" r="7"/><circle cx="1060" cy="250" r="9"/>
+  </g>
+</svg>

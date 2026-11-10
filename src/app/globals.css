@@ -1,0 +1,829 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+/* ──────────────────────────────────────────────────────────────
+   OopsArka — "Playful Editorial" design system
+   Light (ivory) is the primary experience; "3 AM mode" is the
+   secondary night theme. Brand hues are fills; *-ink variants are
+   the only accent colours allowed for text (AA-checked in tests).
+   ────────────────────────────────────────────────────────────── */
+
+@custom-variant dark (&:where([data-theme="night"], [data-theme="night"] *));
+
+/* Motion is opt-in: OS allows it AND the reader hasn't switched on Calm mode. */
+@custom-variant motion-ok {
+  @media (prefers-reduced-motion: no-preference) {
+    &:where(html:not([data-calm='true']) *) {
+      @slot;
+    }
+  }
+}
+@custom-variant motion-off {
+  @media (prefers-reduced-motion: reduce) {
+    @slot;
+  }
+  &:where(html[data-calm='true'] *) {
+    @slot;
+  }
+}
+@custom-variant pointer-fine (@media (hover: hover) and (pointer: fine));
+
+@theme {
+  --font-display: var(--font-fraunces), 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, 'Segoe UI', sans-serif;
+  --font-hand: var(--font-kalam), 'Segoe Print', 'Bradley Hand', cursive;
+
+  --text-hero: clamp(3.4rem, 1.6rem + 7.4vw, 9.75rem);
+  --text-hero--line-height: 0.88;
+  --text-hero--letter-spacing: -0.035em;
+  --text-display: clamp(2.6rem, 1.5rem + 4.4vw, 6rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.03em;
+  --text-headline: clamp(2rem, 1.35rem + 2.6vw, 3.9rem);
+  --text-headline--line-height: 1.02;
+  --text-headline--letter-spacing: -0.022em;
+  --text-title: clamp(1.4rem, 1.15rem + 1vw, 2.1rem);
+  --text-title--line-height: 1.12;
+  --text-title--letter-spacing: -0.012em;
+  --text-lede: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+  --text-lede--line-height: 1.55;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.12em;
+
+  --radius-print: 0.375rem;
+  --radius-pill: 999px;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --shadow-print: 0 1px 1px rgb(36 33 31 / 0.06), 0 6px 16px -8px rgb(36 33 31 / 0.22);
+  --shadow-sticker: 0 1px 0 rgb(36 33 31 / 0.08), 0 3px 8px -4px rgb(36 33 31 / 0.25);
+
+  --breakpoint-xs: 25rem;
+  --breakpoint-3xl: 112rem;
+
+  --animate-marquee: marquee var(--marquee-duration, 48s) linear infinite;
+  --animate-marquee-reverse: marquee-reverse var(--marquee-duration, 48s) linear infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+  --animate-wobble: wobble 600ms var(--ease-spring) both;
+}
+
+:root {
+  color-scheme: light;
+  --bg: #f8f5ef;
+  --bg-deep: #f1ebdf;
+  --surface: #ffffff;
+  --ink: #24211f;
+  --ink-muted: #5b5550;
+  --line: #e2dacb;
+  --line-strong: #cfc4b1;
+  --on-fill: #24211f;
+
+  --lavender: #c7b9e8;
+  --lavender-soft: #ebe5f7;
+  --lavender-ink: #5f4b9b;
+  --butter: #f3d875;
+  --butter-soft: #faefc4;
+  --sage: #becdba;
+  --sage-soft: #e2eadf;
+  --sage-ink: #44583f;
+  --rose: #e7b8b0;
+  --rose-soft: #f6e1dc;
+  --rose-ink: #8a3f33;
+  --marmalade: #e0914a;
+  --window: #f4b860;
+  --danger: #a3241a;
+  --success: #2f6b3a;
+
+  --grain-opacity: 0.32;
+  --frame: #ffffff;
+
+  /* shadcn semantic tokens mapped to the brand */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--bg);
+  --secondary: var(--lavender-soft);
+  --secondary-foreground: var(--ink);
+  --muted: var(--bg-deep);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--butter-soft);
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--lavender-ink);
+  --radius: 0.75rem;
+}
+
+/* 3 AM mode — borrowed from the night-patrol photo: navy sky, lit windows. */
+[data-theme='night'] {
+  color-scheme: dark;
+  --bg: #141a2e;
+  --bg-deep: #10152a;
+  --surface: #1d2340;
+  --ink: #f3efe7;
+  --ink-muted: #c3bdb3;
+  --line: #2c3458;
+  --line-strong: #3d4672;
+  --lavender-soft: #2a2750;
+  --lavender-ink: #cdbff2;
+  --butter-soft: #3a3427;
+  --sage-soft: #23302f;
+  --sage-ink: #b9d0b2;
+  --rose-soft: #3a2730;
+  --rose-ink: #f0bdb4;
+  --danger: #ff9a8f;
+  --success: #93d3a0;
+  --grain-opacity: 0.22;
+  --frame: #f3efe7;
+  --primary-foreground: #141a2e;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-deep: var(--bg-deep);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-on-fill: var(--on-fill);
+  --color-lavender: var(--lavender);
+  --color-lavender-soft: var(--lavender-soft);
+  --color-lavender-ink: var(--lavender-ink);
+  --color-butter: var(--butter);
+  --color-butter-soft: var(--butter-soft);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-sage-ink: var(--sage-ink);
+  --color-rose: var(--rose);
+  --color-rose-soft: var(--rose-soft);
+  --color-rose-ink: var(--rose-ink);
+  --color-marmalade: var(--marmalade);
+  --color-window: var(--window);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-frame: var(--frame);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/* Small caps labels (eyebrows, metadata). A utility so it can be combined and @apply'd. */
+@utility label {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* ───────────────────────────── base ───────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    @apply bg-bg font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply min-h-dvh bg-bg text-[1.0625rem] leading-[1.65] text-ink;
+    font-feature-settings: 'ss01', 'cv11';
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--lavender);
+    color: var(--on-fill);
+  }
+  :focus-visible {
+    outline: 2.5px solid var(--ink);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--lavender) 70%, transparent);
+    border-radius: 4px;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-semibold text-balance;
+    font-optical-sizing: auto;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 0.08em;
+  }
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  :where(input, textarea, select)::placeholder {
+    color: color-mix(in oklab, var(--ink-muted) 80%, transparent);
+  }
+}
+
+/* ──────────────────────────── components ──────────────────────────── */
+@layer components {
+  /* Page gutter + max width */
+  .shell {
+    width: 100%;
+    max-width: 90rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+
+  /* Marker swash behind a word — keeps ink text for contrast */
+  .marker {
+    background-image: linear-gradient(
+      100deg,
+      transparent 0.4em,
+      var(--marker, var(--butter)) 0.4em,
+      var(--marker, var(--butter)) calc(100% - 0.25em),
+      transparent calc(100% - 0.25em)
+    );
+    background-size: 100% 0.52em;
+    background-position: 0 88%;
+    background-repeat: no-repeat;
+    color: inherit;
+    padding-inline: 0.08em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  /* At night the swash dims so light text keeps its contrast. */
+  [data-theme='night'] .marker {
+    --marker: color-mix(in oklab, var(--butter) 38%, transparent);
+  }
+
+  /* Hand-written aside */
+  .hand {
+    @apply font-hand;
+    line-height: 1.1;
+  }
+
+  /* Static paper grain overlay */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url('/images/textures/grain.svg');
+    background-size: 220px 220px;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: multiply;
+    z-index: 1;
+  }
+  [data-theme='night'] .grain::after {
+    mix-blend-mode: soft-light;
+  }
+
+  /* Die-cut sticker */
+  .sticker {
+    @apply inline-flex items-center gap-1.5 rounded-pill bg-surface px-3 py-1 text-on-fill;
+    box-shadow: var(--shadow-sticker);
+    outline: 3px solid var(--frame);
+  }
+  [data-theme='night'] .sticker {
+    background: var(--frame);
+  }
+
+  /* Washi tape strip */
+  .tape {
+    position: absolute;
+    height: 1.6rem;
+    width: 6.5rem;
+    background: color-mix(in oklab, var(--tape, var(--butter)) 78%, transparent);
+    mask-image:
+      linear-gradient(90deg, transparent 0 3px, #000 3px calc(100% - 3px), transparent calc(100% - 3px)),
+      repeating-linear-gradient(180deg, #000 0 3px, transparent 3px 5px);
+    mask-composite: add;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0 3px, #000 3px calc(100% - 3px), transparent calc(100% - 3px));
+    mix-blend-mode: multiply;
+    z-index: 3;
+  }
+  [data-theme='night'] .tape {
+    mix-blend-mode: normal;
+    opacity: 0.85;
+  }
+
+  /* Rubber stamp */
+  .stamp {
+    @apply inline-flex items-center gap-2 rounded-[0.4rem] px-2.5 py-1 label;
+    border: 2px solid currentColor;
+    transform: rotate(-3deg);
+    opacity: 0.92;
+  }
+
+  /* Animated underline for text links */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    text-decoration: none;
+    transition: background-size 280ms var(--ease-out-soft);
+  }
+  .link-draw:hover,
+  .link-draw:focus-visible,
+  .link-draw[aria-current='page'] {
+    background-size: 100% 2px;
+  }
+
+  /* Paw press feedback for buttons */
+  .press {
+    transition:
+      transform 160ms var(--ease-out-soft),
+      background-color 200ms ease,
+      box-shadow 200ms ease;
+  }
+  .press:active {
+    transform: scale(0.97) translateY(1px);
+  }
+
+  /* Torn-paper edge of a coloured band (see TornEdge). The colour is the neighbour's. */
+  .torn {
+    position: absolute;
+    inset-inline: 0;
+    height: 14px;
+    z-index: 2;
+    pointer-events: none;
+    background: var(--torn, var(--bg));
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='14' viewBox='0 0 320 14'%3E%3Cpath d='M0 0H320V8L308 11 296 7 281 12 268 8 255 10 240 5 226 11 212 8 199 12 184 7 170 10 158 6 143 11 130 8 116 12 101 7 88 10 74 5 60 11 47 8 33 12 18 7 8 10 0 8Z'/%3E%3C/svg%3E");
+    mask-size: 320px 14px;
+    mask-repeat: repeat-x;
+  }
+
+  /* Outline button that fills with ink from the bottom on hover/focus. */
+  .btn-fill {
+    background-image: linear-gradient(var(--ink), var(--ink));
+    background-size: 100% 0%;
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    transition:
+      background-size 320ms var(--ease-out-soft),
+      color 220ms ease,
+      transform 160ms var(--ease-out-soft);
+  }
+  .btn-fill:hover,
+  .btn-fill:focus-visible {
+    background-size: 100% 100%;
+  }
+
+  /* Sticker links give a little wiggle. */
+  a.sticker {
+    transition: scale 200ms var(--ease-spring);
+  }
+  a.sticker:hover {
+    scale: 1.06;
+  }
+
+  /* Stretched link: whole card clickable, one accessible link */
+  .stretched::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+
+  /* Visually hidden but accessible */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    @apply sr-only;
+  }
+
+  /* CSS letter roll (see RollLabel) */
+  .roll-label {
+    display: inline-flex;
+  }
+  .roll-track {
+    display: inline-flex;
+    overflow: hidden;
+    line-height: 1.25;
+    padding-block: 0.05em;
+  }
+  .roll-letter {
+    position: relative;
+    display: inline-block;
+    transition: transform 420ms var(--ease-out-soft);
+    transition-delay: calc(var(--i, 0) * 14ms);
+  }
+  .roll-letter::after {
+    content: attr(data-l);
+    position: absolute;
+    left: 0;
+    top: 110%;
+  }
+  .group:hover .roll-letter,
+  .group:focus-visible .roll-letter {
+    transform: translateY(-110%);
+  }
+}
+
+/* ──────────────────────────── article prose ──────────────────────────── */
+@layer components {
+  .prose-arka {
+    --measure: 66ch;
+    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .prose-arka > * {
+    max-width: var(--measure);
+    margin-inline: auto;
+  }
+  .prose-arka > * + * {
+    margin-top: 1.25em;
+  }
+  .prose-arka.dropcap > p:first-of-type::first-letter {
+    font-family: var(--font-display);
+    font-weight: 600;
+    float: left;
+    font-size: 4.1em;
+    line-height: 0.82;
+    padding: 0.06em 0.1em 0 0;
+    color: var(--lavender-ink);
+  }
+  .prose-arka h2 {
+    font-size: clamp(1.6rem, 1.25rem + 1.2vw, 2.25rem);
+    line-height: 1.12;
+    margin-top: 2.2em;
+    letter-spacing: -0.015em;
+  }
+  .prose-arka h3 {
+    font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
+    line-height: 1.2;
+    margin-top: 1.8em;
+  }
+  .prose-arka h4 {
+    font-family: var(--font-sans);
+    font-size: 1em;
+    font-weight: 700;
+    margin-top: 1.6em;
+  }
+  .prose-arka :is(h2, h3) + * {
+    margin-top: 0.6em;
+  }
+  .prose-arka a {
+    color: var(--lavender-ink);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--lavender-ink) 45%, transparent);
+  }
+  .prose-arka a:hover {
+    text-decoration-color: currentColor;
+  }
+  .prose-arka strong {
+    font-weight: 700;
+  }
+  .prose-arka ul,
+  .prose-arka ol {
+    padding-left: 1.3em;
+  }
+  .prose-arka ul {
+    list-style: none;
+  }
+  .prose-arka ul > li {
+    position: relative;
+  }
+  .prose-arka ul > li::before {
+    content: '';
+    position: absolute;
+    left: -1.05em;
+    top: 0.72em;
+    width: 0.45em;
+    height: 0.45em;
+    border-radius: 999px;
+    background: var(--lavender);
+    box-shadow: 0 0 0 2px var(--bg);
+  }
+  .prose-arka ol {
+    list-style: decimal;
+  }
+  .prose-arka ol > li::marker {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--lavender-ink);
+  }
+  .prose-arka li + li {
+    margin-top: 0.45em;
+  }
+  .prose-arka blockquote {
+    border-left: 3px solid var(--lavender);
+    padding-left: 1.1em;
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+  .prose-arka code {
+    font-size: 0.9em;
+    background: var(--bg-deep);
+    border-radius: 0.3em;
+    padding: 0.1em 0.35em;
+  }
+  .prose-arka hr {
+    border: 0;
+  }
+  .prose-arka > .breakout {
+    max-width: min(100%, 60rem);
+  }
+  .prose-arka > :is(aside, figure) {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+  /* Arka's handwritten asides: inline on small screens, in the margin on wide ones. */
+  .prose-arka > .arka-note {
+    max-width: 30ch;
+    padding: 0.9rem 1.1rem;
+    border-radius: 0.9rem;
+    background: var(--lavender-soft);
+    transform: rotate(-1.2deg);
+  }
+  @media (min-width: 80rem) {
+    .prose-arka > .arka-note {
+      position: relative;
+      height: 0;
+      max-width: var(--measure);
+      margin-block: 0;
+      padding: 0;
+      background: none;
+      transform: none;
+    }
+    .prose-arka > .arka-note > .arka-note-inner {
+      position: absolute;
+      top: -4.2em;
+      left: calc(100% + 3rem);
+      width: 13rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--lavender);
+      transform: rotate(-1.5deg);
+    }
+  }
+}
+
+/* ──────────────────────────── motion ──────────────────────────── */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+@keyframes marquee-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes wobble {
+  0% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-8deg);
+  }
+  60% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes settle {
+  from {
+    transform: translate3d(0, 0.16em, 0) rotate(1.6deg);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--len, 600);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes float-y {
+  50% {
+    transform: translate3d(0, -6px, 0) rotate(var(--r, 0deg));
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+  }
+}
+@keyframes drop-in {
+  from {
+    translate: 0 -34px;
+    rotate: 5deg;
+    scale: 1.04;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    scale: 0.4;
+    rotate: -14deg;
+  }
+}
+@keyframes roll-in {
+  from {
+    opacity: 0;
+    translate: -90px 0;
+    rotate: -200deg;
+  }
+}
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    scale: 1.7;
+  }
+}
+.reading-progress {
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+@keyframes reading-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Hero words settle into place. Text is visible from the first paint (no opacity
+     trick), so the LCP isn't delayed. */
+  html:not([data-calm='true']) .settle-words > .w {
+    display: inline-block;
+    animation: settle 620ms var(--ease-spring) both;
+    animation-delay: calc(var(--i, 0) * 70ms + 60ms);
+  }
+  html:not([data-calm='true']) .draw-on-load path {
+    stroke-dasharray: var(--len, 600);
+    animation: draw 1100ms var(--ease-out-soft) 500ms both;
+  }
+  html:not([data-calm='true']) .float-soft {
+    animation: float-y 5.5s ease-in-out infinite;
+  }
+
+  /* Page-load entrances (hero, menus). Individual transform properties, so they
+     layer over an element's own transform. `--d` is the delay. */
+  html:not([data-calm='true']) .rise-in {
+    animation: rise-in 700ms var(--ease-out-soft) var(--d, 0ms) both;
+  }
+  html:not([data-calm='true']) .drop-in {
+    animation: drop-in 900ms var(--ease-spring) var(--d, 0ms) both;
+  }
+  html:not([data-calm='true']) .pop-in {
+    animation: pop-in 520ms var(--ease-spring) var(--d, 0ms) both;
+  }
+  html:not([data-calm='true']) .roll-in {
+    animation: roll-in 1000ms var(--ease-out-soft) var(--d, 0ms) both;
+  }
+  html:not([data-calm='true']) .stamp-in {
+    animation: stamp-in 260ms var(--ease-out-soft) var(--d, 0ms) both;
+  }
+  html:not([data-calm='true']) .stagger-in > * {
+    animation: rise-in 520ms var(--ease-out-soft) both;
+  }
+  html:not([data-calm='true']) .stagger-in > :nth-child(1) {
+    animation-delay: 60ms;
+  }
+  html:not([data-calm='true']) .stagger-in > :nth-child(2) {
+    animation-delay: 115ms;
+  }
+  html:not([data-calm='true']) .stagger-in > :nth-child(3) {
+    animation-delay: 170ms;
+  }
+  html:not([data-calm='true']) .stagger-in > :nth-child(4) {
+    animation-delay: 225ms;
+  }
+  html:not([data-calm='true']) .stagger-in > :nth-child(n + 5) {
+    animation-delay: 280ms;
+  }
+
+  @supports (animation-timeline: view()) {
+    html:not([data-calm='true']) .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+    html:not([data-calm='true']) .reveal-draw path {
+      stroke-dasharray: var(--len, 600);
+      animation: draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 35%;
+    }
+  }
+  @supports (animation-timeline: scroll()) {
+    .reading-progress {
+      animation: reading-progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+/* Calm mode / reduced motion: a hard stop for anything that slipped through. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+html[data-calm='true'] *,
+html[data-calm='true'] *::before,
+html[data-calm='true'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+html[data-calm='true']::view-transition-group(*),
+html[data-calm='true']::view-transition-old(*),
+html[data-calm='true']::view-transition-new(*) {
+  animation: none !important;
+}
+
+/* View transitions: a short, quiet cross-fade by default. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: var(--ease-out-soft);
+}
+::view-transition-group(*) {
+  animation-duration: 380ms;
+  animation-timing-function: var(--ease-out-soft);
+}
+::view-transition-group(.morph) {
+  animation-duration: 420ms;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
